@@ -1,0 +1,28 @@
+{
+    "name": "blaj/php-engine",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Blaj\\PhpEngine\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Adam Maciejak",
+            "email": "blaj.kontakt@gmail.com"
+        }
+    ],
+    "config": {
+        "platform": {
+            "php": "8.2"
+        }
+    },
+    "require-dev": {
+        "phpgl/ide-stubs": "^1.0",
+        "phpunit/phpunit": "^10.3",
+        "phpstan/phpstan": "^1.10"
+    },
+    "require": {
+        "psr/container": "^2.0"
+    }
+}
