@@ -2,13 +2,18 @@
 
 namespace Blaj\PhpEngine\Core;
 
+use Blaj\PhpEngine\Container\Attributes\Service;
+use Blaj\PhpEngine\Graphics\Renderer;
+use Blaj\PhpEngine\Graphics\Window;
+
+#[Service]
 class SceneManager
 {
     private ?Scene $currentScene = null;
 
-    public function __construct(int $width, int $height)
+    public function __construct(Window $window, Renderer $renderer)
     {
-        $this->currentScene = new Scene($width, $height);
+        $this->currentScene = new Scene($window->width, $window->height, $renderer);
     }
 
     public function render(): void {
@@ -25,5 +30,10 @@ class SceneManager
         }
 
         $this->currentScene->update($deltaTime);
+    }
+
+    public function getCurrentScene(): ?Scene
+    {
+        return $this->currentScene;
     }
 }

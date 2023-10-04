@@ -1,9 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Blaj\PhpEngine\Graphics;
 
+use Blaj\PhpEngine\Container\Attributes\Service;
 use Blaj\PhpEngine\Core\GameObject;
+use GL\Math\Mat4;
 
+#[Service]
 class Renderer
 {
     private static int $maxBatchSize = 1000;
@@ -13,11 +18,13 @@ class Renderer
      */
     private array $batchRenderers = [];
 
-    public function render(): void {
-        array_walk($this->batchRenderers, fn(BatchRenderer $batchRenderer) => $batchRenderer->render());
+    public function render(Mat4 $projectionMatrix, Mat4 $viewMatrix): void
+    {
+        array_walk($this->batchRenderers, fn(BatchRenderer $batchRenderer) => $batchRenderer->render($projectionMatrix, $viewMatrix));
     }
 
-    public function addGameObject(GameObject $gameObject): void {
+    public function addGameObject(GameObject $gameObject): void
+    {
         $mesh = $gameObject->getComponent(Mesh::class);
 
         if ($mesh === null) {
@@ -27,7 +34,8 @@ class Renderer
         $this->addMesh($mesh);
     }
 
-    private function addMesh(Mesh $mesh): void {
+    private function addMesh(Mesh $mesh): void
+    {
         $added = false;
 
         foreach ($this->batchRenderers as $batchRenderer) {
@@ -40,10 +48,7 @@ class Renderer
 
         if (!$added) {
             $newBatchRenderer = new BatchRenderer(self::$maxBatchSize);
-            $newBatchRenderer->initialize();
-
             $this->batchRenderers[] = $newBatchRenderer;
-
             $newBatchRenderer->addMesh($mesh);
         }
     }

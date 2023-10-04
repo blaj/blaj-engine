@@ -4,9 +4,11 @@ namespace Blaj\PhpEngine\Core;
 
 use GL\Math\Vec3;
 
-class Transform
+class Transform extends Component
 {
-    public function __construct(private Vec3 $position = new Vec3(), private Vec3 $scale = new Vec3())
+    public function __construct(
+        private Vec3 $position = new Vec3(),
+        private Vec3 $scale = new Vec3())
     {
     }
 

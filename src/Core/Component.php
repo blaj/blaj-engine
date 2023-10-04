@@ -6,9 +6,15 @@ namespace Blaj\PhpEngine\Core;
 
 abstract class Component
 {
-    abstract function render(): void;
+    private GameObject $gameObject;
 
-    abstract function update(float $deltaTime): void;
+    public function render(): void
+    {
+    }
+
+    public function update(float $deltaTime): void
+    {
+    }
 
     public function initialize(): void
     {
@@ -16,5 +22,16 @@ abstract class Component
 
     public function destroy(): void
     {
+    }
+
+    public function getGameObject(): GameObject
+    {
+        return $this->gameObject;
+    }
+
+    public function setGameObject(GameObject $gameObject): self
+    {
+        $this->gameObject = $gameObject;
+        return $this;
     }
 }

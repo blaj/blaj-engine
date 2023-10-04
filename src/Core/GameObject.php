@@ -10,7 +10,6 @@ class GameObject
 {
     public function __construct(
         private string $name,
-        private Transform $transform = new Transform(),
         private array $components = [])
     {
     }
@@ -41,7 +40,8 @@ class GameObject
             throw new RuntimeException('GameObject can only have one component of a given type!');
         }
 
-        $component->initialize();;
+        $component->setGameObject($this);
+        $component->initialize();
         $this->components[self::getComponentIndex($component)] = $component;
     }
 
